@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="assets/css/reset.css">
+        
+    </head>
+    <body>
+        <div class="container">
+            <div>
+            <header>
+                <h1>Crystal Game!</h1>
+            </header>
+            
+            <div>Crystal Score: <span id="crystal-score"></span></div>
+            <div>Player Score: <span id="player-score"></span></div>
+            <div>Wins: <span id="wins"></span></div>
+            <div>Losses: <span id="losses"></span></div>
+            
+            <button id="button1">Crystal 1</button>
+            <button id="button2">Crystal 2</button>
+            <button id="button3">Crystal 3</button>
+            <button id="button4">Crystal 4</button>
+
+        </div>
+            
+        </div>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        
+        <script type="text/javascript">
+
+
+let crystalScore = randomNumberGenerator(19, 120);
+let crystals = [];
+let playerScore = 0;
+let wins = 0;
+let losses = 0;
+
+
+function addToDocument () {
+    $("#crystal-score").html(crystalScore);
+    $("#player-score").html(playerScore);
+    $("#button1").val(crystals[0]);
+    $("#button2").val(crystals[1]);
+    $("#button3").val(crystals[2]);
+    $("#button4").val(crystals[3]);
+    $("#wins").html(`${wins}`);
+    $("#losses").html(`${losses}`);
+}
+
+function randomNumberGenerator (min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function buttonValue() {
+for (let i=0; i<4; i++) {
+    crystals.push(randomNumberGenerator(1, 12));
+}
+}
+
+buttonValue();
+                                        
+addToDocument();
+
+
+function clickHandlers () {
+    $("button").click(function(){
+        console.log($(this).val());
+        let crystalNumber = parseInt($(this).val()); 
+        playerScore += crystalNumber;
+        
+
+        if (playerScore > crystalScore) {
+            console.log("You lose!");
+            losses++;
+            playerScore === 0;
+            reset();
+            alert("You Lose!");
+        }
+        
+        
+        if (playerScore === crystalScore) {
+            console.log("You Win!");
+            wins++;
+            playerScore === 0;
+            reset();
+            alert("You Win!");
+        }
+        
+
+addToDocument();
+
+    });
+}
+
+function reset() {
+    crystalScore = randomNumberGenerator(19, 120);
+    playerScore = 0;
+    crystals = [];
+    console.log(crystals);
+    buttonValue();
+}
+
+
+clickHandlers()
+
+
+    </script> 
+    </body>
+    </html>
+    
+    
